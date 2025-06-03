@@ -66,6 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
         updateNavigation();
         updateProgress();
         setupChoiceButtons();
+        setupDotNavigation();
         
         console.log('EMIRATI HOSPITALITY STORY INITIALIZED');
     }
@@ -115,6 +116,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 break;
         }
         updateTotalPagesDisplay();
+    }
+    
+    // === DOT NAVIGATION ===
+    function setupDotNavigation() {
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', function() {
+                const currentPath = storyPaths[storyPath];
+                if (index < currentPath.length) {
+                    const targetPageId = currentPath[index];
+                    goToPage(targetPageId);
+                }
+            });
+        });
     }
     
     // === PAGE NAVIGATION ===
@@ -205,11 +219,24 @@ document.addEventListener('DOMContentLoaded', function() {
             // Disable next button if we're at a choice point or at the end
             nextBtn.disabled = hasChoiceButtons || currentIndex >= currentPath.length - 1;
         }
-        
-        // Hide navigation dots for simplicity in branching story
+
+        // Update navigation dots to show progress through current story path
         const dotsContainer = document.querySelector('.page-dots');
         if (dotsContainer) {
-            dotsContainer.style.display = 'none';
+            dotsContainer.style.display = 'flex'; // Always show the dots
+            
+            // Update dots to reflect current story path progress
+            dots.forEach((dot, index) => {
+                dot.classList.remove('active');
+                if (index < currentPath.length) {
+                    dot.style.display = 'block';
+                    if (index === currentIndex) {
+                        dot.classList.add('active');
+                    }
+                } else {
+                    dot.style.display = 'none';
+                }
+            });
         }
     }
     
@@ -252,12 +279,6 @@ document.addEventListener('DOMContentLoaded', function() {
         updateTotalPagesDisplay();
         updateNavigation();
         updateProgress();
-        
-        // Show navigation dots again
-        const dotsContainer = document.querySelector('.page-dots');
-        if (dotsContainer) {
-            dotsContainer.style.display = 'flex';
-        }
     };
     
     // === EVENT LISTENERS ===
