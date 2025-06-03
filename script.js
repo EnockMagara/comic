@@ -3,6 +3,48 @@
 
 document.addEventListener('DOMContentLoaded', function() {
     
+    // === MOBILE BURGER MENU ===
+    const burgerMenu = document.querySelector('.burger-menu');
+    const mobileNavLinks = document.querySelector('.nav-links');
+    const mobileNavItems = document.querySelectorAll('.nav-link');
+    
+    // Toggle mobile menu
+    if (burgerMenu) {
+        burgerMenu.addEventListener('click', function() {
+            burgerMenu.classList.toggle('active');
+            mobileNavLinks.classList.toggle('active');
+        });
+    }
+    
+    // Close mobile menu when clicking on a nav link
+    mobileNavItems.forEach(link => {
+        link.addEventListener('click', function() {
+            if (window.innerWidth <= 768) {
+                burgerMenu.classList.remove('active');
+                mobileNavLinks.classList.remove('active');
+            }
+        });
+    });
+    
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', function(e) {
+        if (window.innerWidth <= 768 && 
+            !burgerMenu.contains(e.target) && 
+            !mobileNavLinks.contains(e.target) && 
+            mobileNavLinks.classList.contains('active')) {
+            burgerMenu.classList.remove('active');
+            mobileNavLinks.classList.remove('active');
+        }
+    });
+    
+    // Close mobile menu on window resize if window becomes larger
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 768) {
+            burgerMenu.classList.remove('active');
+            mobileNavLinks.classList.remove('active');
+        }
+    });
+    
     // === PARALLAX EFFECTS ===
     const parallaxBg = document.querySelector('.parallax-bg');
     const comicPanels = document.querySelectorAll('.comic-panel[data-parallax-speed]');
