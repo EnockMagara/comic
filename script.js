@@ -92,22 +92,50 @@ document.addEventListener('DOMContentLoaded', function() {
     const sections = document.querySelectorAll('section[id]');
     
     function updateNavigation() {
-        const scrollPosition = window.scrollY + 100;
+        const scrollPosition = window.scrollY;
+        const windowHeight = window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight;
+        
+        // If we're at the very bottom of the page, highlight the last section (about)
+        if (scrollPosition + windowHeight >= documentHeight - 10) {
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#about') {
+                    link.classList.add('active');
+                }
+            });
+            return;
+        }
+        
+        let activeSection = null;
+        let maxVisibleHeight = 0;
         
         sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.offsetHeight;
+            const sectionTop = section.offsetTop - 100; // Account for fixed nav
+            const sectionBottom = sectionTop + section.offsetHeight;
             const sectionId = section.getAttribute('id');
             
-            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === `#${sectionId}`) {
-                        link.classList.add('active');
-                    }
-                });
+            // Calculate how much of the section is visible
+            const visibleTop = Math.max(scrollPosition, sectionTop);
+            const visibleBottom = Math.min(scrollPosition + windowHeight, sectionBottom);
+            const visibleHeight = Math.max(0, visibleBottom - visibleTop);
+            
+            // The section with the most visible area becomes active
+            if (visibleHeight > maxVisibleHeight) {
+                maxVisibleHeight = visibleHeight;
+                activeSection = sectionId;
             }
         });
+        
+        // Update active navigation link
+        if (activeSection) {
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${activeSection}`) {
+                    link.classList.add('active');
+                }
+            });
+        }
     }
     
     // === SMOOTH SCROLLING FOR NAVIGATION ===
