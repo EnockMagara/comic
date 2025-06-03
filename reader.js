@@ -54,20 +54,31 @@ document.addEventListener('DOMContentLoaded', function() {
     let audioEnabled = false;
     let currentVolume = 0.3; // Default volume
     let previousPageId = null;
-    let isAudioFading = false;
+    let currentFadeInterval = null; // Track current fade operation
 
-    // Define scenes that should have audio playing
-    const audioScenes = new Set(['2b', '3a', '4', '7', '8', '11', '3b']);
+    // Define scenes that should have audio playing (now includes all scenes)
+    const audioScenes = new Set(['1', '2', '2a', '2b', '3a', '3b', '4', '5a', '5b', '6a', '6b', '7', '8', '9a', '9b', '10a', '10b', '11']);
     
     // Define specific volume levels for each scene
     const sceneVolumes = new Map([
-        ['2b', 0.25],  // Ahmed chooses to greet - Start cultural music
+        ['1', 0.2],    // Opening scene - Subtle introduction
+        ['2', 0.25],   // Choice point - Building anticipation
+        ['2a', 0.15],  // Ahmed hides - Subdued atmosphere
+        ['2b', 0.3],   // Ahmed chooses to greet - Rising action
         ['3a', 0.4],   // Ahmed greets the guest - Welcoming moment
+        ['3b', 0.2],   // Story end (hide path) - Somber ending
         ['4', 0.35],   // Guest enters - Traditional hospitality begins
+        ['5a', 0.35],  // Wrong hand shown - Maintain atmosphere
+        ['5b', 0.35],  // Correct hand shown - Maintain atmosphere
+        ['6a', 0.35],  // Guest corrects Ahmed - Maintain atmosphere
+        ['6b', 0.35],  // Guest approves - Maintain atmosphere
         ['7', 0.5],    // Pouring gahwa - Ceremonial moment (peak)
         ['8', 0.3],    // Guest signals - Crucial cultural moment
-        ['11', 0.6],   // Final message - Reflective ending (emotional peak)
-        ['3b', 0.2]    // Story end (hide path) - Somber ending
+        ['9a', 0.4],   // Ahmed chooses respect - Good choice
+        ['9b', 0.3],   // Ahmed chooses refill - Mistake
+        ['10a', 0.45], // Takes cup & respects signal - Positive ending
+        ['10b', 0.3],  // Refills cup - Learning moment
+        ['11', 0.6]    // Final message - Reflective ending (emotional peak)
     ]);
 
     // Define scenes that should have cinematic effects
@@ -80,8 +91,44 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    function clearCurrentFade() {
+        if (currentFadeInterval) {
+            clearInterval(currentFadeInterval);
+            currentFadeInterval = null;
+        }
+    }
+
+    function fadeAudioVolume(startVolume, endVolume, duration) {
+        if (!backgroundAudio) return;
+        
+        // Clear any existing fade operation
+        clearCurrentFade();
+        
+        backgroundAudio.volume = startVolume;
+        const steps = 50;
+        const stepDuration = duration / steps;
+        const volumeStep = (endVolume - startVolume) / steps;
+        
+        let currentStep = 0;
+        currentFadeInterval = setInterval(() => {
+            currentStep++;
+            backgroundAudio.volume = Math.max(0, Math.min(1, startVolume + (volumeStep * currentStep)));
+            
+            if (currentStep >= steps) {
+                clearInterval(currentFadeInterval);
+                currentFadeInterval = null;
+                backgroundAudio.volume = endVolume;
+                
+                // If fading to 0, pause the audio
+                if (endVolume === 0) {
+                    backgroundAudio.pause();
+                }
+            }
+        }, stepDuration);
+    }
+
     function playAudioWithFadeIn(volume = currentVolume, duration = 2000) {
-        if (!backgroundAudio || !audioEnabled || isAudioFading) return;
+        if (!backgroundAudio || !audioEnabled) return;
         
         const playPromise = backgroundAudio.play();
         if (playPromise !== undefined) {
@@ -91,33 +138,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.log('Audio play prevented by browser:', error);
             });
         }
-    }
-
-    function fadeAudioVolume(startVolume, endVolume, duration) {
-        if (!backgroundAudio || isAudioFading) return;
-        
-        isAudioFading = true;
-        backgroundAudio.volume = startVolume;
-        const steps = 50;
-        const stepDuration = duration / steps;
-        const volumeStep = (endVolume - startVolume) / steps;
-        
-        let currentStep = 0;
-        const fadeInterval = setInterval(() => {
-            currentStep++;
-            backgroundAudio.volume = Math.max(0, Math.min(1, startVolume + (volumeStep * currentStep)));
-            
-            if (currentStep >= steps) {
-                clearInterval(fadeInterval);
-                backgroundAudio.volume = endVolume;
-                isAudioFading = false;
-                
-                // If fading to 0, pause the audio
-                if (endVolume === 0) {
-                    backgroundAudio.pause();
-                }
-            }
-        }, stepDuration);
     }
 
     function pauseAudioWithFadeOut(duration = 1500) {
@@ -184,25 +204,15 @@ document.addEventListener('DOMContentLoaded', function() {
             audioEnabled = true; // Enable on first interaction
         }
 
-        const shouldPlayAudio = audioScenes.has(currentPageId);
-        const wasPlayingAudio = previousPageId ? audioScenes.has(previousPageId) : false;
+        // Since audio plays on all scenes now, we only need to manage volume transitions
+        const targetVolume = sceneVolumes.get(currentPageId) || currentVolume;
 
-        if (shouldPlayAudio && wasPlayingAudio) {
-            // Both scenes need audio - adjust volume smoothly
-            const targetVolume = sceneVolumes.get(currentPageId) || currentVolume;
-            resumeAudioWithFadeIn(targetVolume, 1500);
-            
-        } else if (shouldPlayAudio && !wasPlayingAudio) {
-            // New scene needs audio, previous didn't - start playing
-            const targetVolume = sceneVolumes.get(currentPageId) || currentVolume;
+        if (backgroundAudio && backgroundAudio.paused) {
+            // Start playing if not already playing
             resumeAudioWithFadeIn(targetVolume, 2000);
-            
-        } else if (!shouldPlayAudio && wasPlayingAudio) {
-            // New scene doesn't need audio, previous did - pause
-            pauseAudioWithFadeOut(1500);
-            
-        } else {
-            // Neither scene needs audio - do nothing
+        } else if (backgroundAudio && !backgroundAudio.paused) {
+            // Already playing, just adjust volume smoothly
+            fadeAudioVolume(backgroundAudio.volume, targetVolume, 1500);
         }
 
         // Add cinematic effects for special scenes
@@ -323,11 +333,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 audioEnabled = true;
                 audioBtn.textContent = '♪ ON';
                 audioBtn.style.backgroundColor = '#DAA520';
-                // Start audio if we're on a scene that should have music
+                // Start audio immediately at the current scene's volume
                 const activePage = document.querySelector('.comic-page.active');
                 if (activePage) {
                     const pageId = activePage.getAttribute('data-page');
-                    manageAudioTransition(pageId, activePage);
+                    const targetVolume = sceneVolumes.get(pageId) || currentVolume;
+                    resumeAudioWithFadeIn(targetVolume, 1000);
                 }
             } else {
                 audioEnabled = false;
@@ -482,11 +493,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // === RESTART FUNCTION ===
     window.restartStory = function() {
-        // Stop any playing audio
-        if (backgroundAudio && !backgroundAudio.paused) {
-            pauseAudioWithFadeOut(500);
-        }
-        
         // Reset audio tracking state
         previousPageId = null;
         
@@ -507,6 +513,12 @@ document.addEventListener('DOMContentLoaded', function() {
         updateTotalPagesDisplay();
         updateNavigation();
         updateProgress();
+        
+        // Start audio for scene 1 if audio is enabled
+        if (audioEnabled) {
+            const targetVolume = sceneVolumes.get('1') || 0.2;
+            resumeAudioWithFadeIn(targetVolume, 2000);
+        }
     };
     
     // === EVENT LISTENERS ===
