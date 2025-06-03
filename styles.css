@@ -1,0 +1,756 @@
+/* BRUTALIST COMIC WEBSITE STYLES */
+/* Color Palette: Dark Brown, Cream, Copper, Gold */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'JetBrains Mono', monospace;
+    background-color: #2C1810;
+    color: #F5F1E8;
+    line-height: 1.2;
+    overflow-x: hidden;
+}
+
+/* === NAVIGATION === */
+.nav-fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: #2C1810;
+    border-bottom: 4px solid #F5F1E8;
+    z-index: 1000;
+    height: 80px;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    padding: 0 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.nav-brand {
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: #CD853F;
+}
+
+.nav-links {
+    display: flex;
+    gap: 0;
+}
+
+.nav-link {
+    color: #F5F1E8;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 28px 32px;
+    border-left: 2px solid #F5F1E8;
+    background-color: #2C1810;
+    position: relative;
+    text-transform: uppercase;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    background-color: #F5F1E8;
+    color: #2C1810;
+}
+
+.nav-link:last-child {
+    border-right: 2px solid #F5F1E8;
+}
+
+/* === HERO SECTION === */
+.hero-section {
+    height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin-top: 120px;
+    z-index: 100;
+}
+
+.parallax-bg {
+    position: absolute;
+    top: -20%;
+    left: -20%;
+    width: 140%;
+    height: 140%;
+    background: 
+        linear-gradient(45deg, transparent 30%, #CD853F 30%, #CD853F 32%, transparent 32%),
+        linear-gradient(-45deg, transparent 30%, #DAA520 30%, #DAA520 32%, transparent 32%);
+    background-size: 100px 100px;
+    opacity: 0.1;
+    will-change: transform;
+    z-index: 1;
+}
+
+.hero-content {
+    text-align: center;
+    z-index: 10;
+    position: relative;
+}
+
+.hero-title {
+    font-size: clamp(4rem, 12vw, 12rem);
+    font-weight: 800;
+    line-height: 0.8;
+    letter-spacing: -4px;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+}
+
+.title-line {
+    display: block;
+    color: #F5F1E8;
+    text-shadow: 4px 4px 0px #2C1810;
+}
+
+.title-line.accent {
+    color: #CD853F;
+    background-color: #F5F1E8;
+    padding: 0 20px;
+    margin: 10px 0;
+    display: inline-block;
+    border: 8px solid #2C1810;
+}
+
+.hero-subtitle {
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: 2px;
+    margin-bottom: 60px;
+    color: #DAA520;
+}
+
+.hero-cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 20px 40px;
+    background-color: #CD853F;
+    color: #F5F1E8;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border: 4px solid #F5F1E8;
+    position: relative;
+}
+
+.main-cta {
+    background: linear-gradient(135deg, #CD853F 0%, #DAA520 100%);
+    padding: 24px 48px;
+    font-size: 20px;
+    letter-spacing: 3px;
+    border: 6px solid #F5F1E8;
+    box-shadow: 0 8px 20px rgba(44, 24, 16, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    transform: scale(1);
+    transition: all 0.3s ease;
+}
+
+.main-cta:hover {
+    background: linear-gradient(135deg, #F5F1E8 0%, #DAA520 100%);
+    color: #2C1810;
+    border-color: #CD853F;
+    transform: scale(1.05) translate(-2px, -2px);
+    box-shadow: 8px 12px 24px rgba(44, 24, 16, 0.4);
+}
+
+.cta-icon {
+    font-size: 24px;
+    display: inline-block;
+    animation: pulse 2s infinite;
+}
+
+.cta-text {
+    font-weight: 900;
+    letter-spacing: 4px;
+}
+
+.cta-subtitle {
+    font-size: 16px;
+    font-weight: 500;
+    color: #8B6F47;
+    text-align: center;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 24px;
+    background: rgba(139, 111, 71, 0.1);
+    border: 2px solid rgba(139, 111, 71, 0.3);
+    border-radius: 0;
+}
+
+.culture-icon {
+    font-size: 20px;
+    opacity: 0.8;
+    animation: glow 3s infinite alternate;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+@keyframes glow {
+    0% { opacity: 0.6; }
+    100% { opacity: 1; }
+}
+
+.cta-button:hover {
+    background-color: #F5F1E8;
+    color: #2C1810;
+    border-color: #CD853F;
+}
+
+.hero-noise {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 2px,
+            rgba(245, 241, 232, 0.03) 2px,
+            rgba(245, 241, 232, 0.03) 4px
+        );
+    pointer-events: none;
+    z-index: 5;
+}
+
+/* === COMICS GRID SECTION === */
+.comics-grid-section {
+    padding: 120px 40px;
+    background-color: #2C1810;
+    min-height: 100vh;
+    position: relative;
+    z-index: 300;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 80px;
+}
+
+.section-title {
+    font-size: 48px;
+    font-weight: 800;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #F5F1E8;
+    margin-bottom: 20px;
+}
+
+.section-line {
+    width: 200px;
+    height: 4px;
+    background-color: #CD853F;
+    margin: 0 auto;
+}
+
+/* === STORY PREVIEW === */
+.story-preview {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    max-width: 1400px;
+    margin: 0 auto;
+    align-items: center;
+}
+
+.story-description h3 {
+    font-size: 28px;
+    font-weight: 800;
+    color: #CD853F;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 30px;
+}
+
+.story-description p {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #F5F1E8;
+    margin-bottom: 40px;
+}
+
+.story-features {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+}
+
+.feature {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    background-color: #F5F1E8;
+    border: 2px solid #CD853F;
+    color: #2C1810;
+}
+
+.feature-icon {
+    font-size: 24px;
+}
+
+.feature-text {
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.story-preview-panel {
+    background-color: #F5F1E8;
+    border: 4px solid #2C1810;
+    position: relative;
+    cursor: pointer;
+}
+
+.story-preview-panel:hover {
+    transform: translate(-4px, -4px);
+    box-shadow: 8px 8px 0px #CD853F;
+}
+
+.preview-image {
+    aspect-ratio: 4/3;
+    background-color: #2C1810;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-bottom: 4px solid #2C1810;
+}
+
+.preview-placeholder {
+    text-align: center;
+}
+
+.preview-text {
+    display: block;
+    font-size: 48px;
+    font-weight: 800;
+    color: #F5F1E8;
+    letter-spacing: 4px;
+    margin-bottom: 8px;
+}
+
+.preview-subtitle {
+    display: block;
+    font-size: 14px;
+    font-weight: 400;
+    color: #DAA520;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.preview-info {
+    padding: 24px;
+    background-color: #F5F1E8;
+}
+
+.preview-info h4 {
+    font-size: 20px;
+    font-weight: 800;
+    color: #2C1810;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+
+.preview-meta {
+    font-size: 12px;
+    font-weight: 400;
+    color: #8B6F47;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+.preview-link {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #CD853F;
+    color: #F5F1E8;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border: 2px solid #2C1810;
+}
+
+.preview-link:hover {
+    background-color: #2C1810;
+    border-color: #CD853F;
+}
+
+/* === ABOUT SECTION === */
+.about-section {
+    padding: 120px 40px;
+    background-color: #F5F1E8;
+    color: #2C1810;
+    position: relative;
+    z-index: 400;
+}
+
+.about-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.about-title {
+    font-size: 48px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin-bottom: 40px;
+    color: #CD853F;
+}
+
+.about-description {
+    font-size: 18px;
+    line-height: 1.6;
+    font-weight: 400;
+}
+
+/* === FOOTER === */
+.footer {
+    background-color: #2C1810;
+    border-top: 4px solid #F5F1E8;
+    padding: 40px;
+    position: relative;
+    z-index: 500;
+}
+
+.footer-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-text {
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    color: #F5F1E8;
+}
+
+.footer-links {
+    display: flex;
+    gap: 40px;
+}
+
+.footer-link {
+    color: #F5F1E8;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 8px 16px;
+    border: 2px solid #F5F1E8;
+}
+
+.footer-link:hover {
+    background-color: #CD853F;
+    border-color: #CD853F;
+}
+
+/* === RESPONSIVE DESIGN === */
+@media (max-width: 768px) {
+    .nav-container {
+        padding: 0 20px;
+    }
+    
+    .nav-brand {
+        font-size: 18px;
+    }
+    
+    .nav-links {
+        gap: 0;
+    }
+    
+    .nav-link {
+        padding: 28px 16px;
+        font-size: 14px;
+    }
+    
+    .hero-title {
+        font-size: clamp(3rem, 15vw, 8rem);
+    }
+    
+    .hero-subtitle {
+        font-size: 14px;
+        padding: 0 20px;
+    }
+    
+    .main-cta {
+        padding: 20px 32px;
+        font-size: 16px;
+        letter-spacing: 2px;
+        gap: 12px;
+    }
+    
+    .cta-icon {
+        font-size: 20px;
+    }
+    
+    .cta-subtitle {
+        font-size: 14px;
+        padding: 12px 16px;
+        gap: 8px;
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .culture-icon {
+        font-size: 16px;
+    }
+    
+    .story-preview {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        padding: 0 20px;
+    }
+    
+    .story-description h3 {
+        font-size: 24px;
+    }
+    
+    .story-description p {
+        font-size: 16px;
+    }
+    
+    .story-features {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .scene-title {
+        font-size: 28px;
+    }
+    
+    .comics-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        padding: 0 20px;
+    }
+    
+    .about-content {
+        grid-template-columns: 1fr;
+        gap: 60px;
+        text-align: center;
+    }
+    
+    .footer-content {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+    
+    .footer-links {
+        gap: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .comics-grid-section,
+    .about-section {
+        padding: 80px 20px;
+    }
+    
+    .section-title {
+        font-size: 32px;
+    }
+    
+    .story-description h3 {
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+    
+    .story-description p {
+        font-size: 14px;
+        margin-bottom: 30px;
+    }
+    
+    .feature {
+        padding: 12px;
+    }
+    
+    .feature-text {
+        font-size: 12px;
+    }
+    
+    .main-cta {
+        padding: 18px 24px;
+        font-size: 14px;
+        letter-spacing: 1px;
+        gap: 8px;
+    }
+    
+    .cta-text {
+        letter-spacing: 2px;
+    }
+    
+    .cta-subtitle {
+        font-size: 12px;
+        padding: 10px 12px;
+        gap: 6px;
+    }
+    
+    .scene-title {
+        font-size: 24px;
+    }
+    
+    .about-title {
+        font-size: 32px;
+    }
+}
+
+/* === SCENE HEADER === */
+.scene-header {
+    margin-top: 100px;
+}
+
+.scene-title {
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #CD853F;
+    margin-bottom: 20px;
+}
+
+/* === COMICS GRID === */
+.comics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+    padding: 60px 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.comic-panel {
+    background-color: #F5F1E8;
+    border: 6px solid #2C1810;
+    position: relative;
+    aspect-ratio: 3/4;
+    cursor: pointer;
+    transform: translateY(0);
+    transition: all 0.3s ease;
+}
+
+.comic-panel:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 16px 32px rgba(44, 24, 16, 0.3);
+}
+
+.panel-image {
+    height: 70%;
+    background-color: #2C1810;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.panel-placeholder {
+    font-size: 48px;
+    font-weight: 800;
+    color: #CD853F;
+    letter-spacing: 2px;
+}
+
+.panel-info {
+    padding: 20px;
+    height: 30%;
+}
+
+.panel-title {
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: #2C1810;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+.panel-meta {
+    font-size: 12px;
+    font-weight: 400;
+    color: #CD853F;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.panel-border {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 4px solid transparent;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+.comic-panel:hover .panel-border {
+    border-color: #DAA520;
+}
+
+.panel-link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+    text-decoration: none;
+}
+
+.feature-text {
+    font-size: 12px;
+}
+
+.about-title {
+    font-size: 32px;
+} 

@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AHMED'S STORY - Guest of Honor</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="reader.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="reader-body">
+    <!-- Fixed Navigation -->
+    <nav class="nav-fixed reader-nav">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="index.html" class="back-link">← AHMED'S JOURNEY</a>
+            </div>
+            <div class="reader-info">
+                <span class="comic-title">GUEST OF HONOR</span>
+                <span class="issue-info">AHMED'S HOSPITALITY STORY</span>
+            </div>
+            <div class="reader-controls">
+                <button class="control-btn" id="fullscreen-btn">FULL</button>
+                <button class="control-btn" id="settings-btn">SET</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Comic Reader Container -->
+    <main class="reader-container">
+        <div class="comic-pages">
+            <!-- Scene 1: Ahmed hears the doorbell -->
+            <div class="comic-page active" data-page="1">
+                <div class="page-image">
+                    <img src="public/scene1.jpeg" alt="Ahmed hears the doorbell" class="comic-image">
+                    <div class="page-number">001</div>
+                </div>
+                <div class="page-caption">
+                    <p>AHMED HEARS THE DOORBELL</p>
+                    <p class="caption-description">Ahmed, a young boy in a traditional Emirati home, hears the doorbell while sitting on a majlis (traditional seating area with cushions).</p>
+                </div>
+            </div>
+
+            <!-- Scene 2: Interactive Choice -->
+            <div class="comic-page" data-page="2">
+                <div class="page-image">
+                    <img src="public/scene2a.jpeg" alt="Ahmed faces a choice" class="comic-image">
+                    <div class="page-number">002</div>
+                </div>
+                <div class="page-caption">
+                    <p>AHMED FACES A CHOICE</p>
+                    <p class="caption-description">What should Ahmed do? Choose his path...</p>
+                </div>
+                <div class="choice-buttons">
+                    <button class="choice-btn greet-btn" data-choice="greet">
+                        <span class="choice-title">GREET</span>
+                        <span class="choice-desc">Uphold the tradition of welcoming guests</span>
+                    </button>
+                    <button class="choice-btn hide-btn" data-choice="hide">
+                        <span class="choice-title">HIDE</span>
+                        <span class="choice-desc">Give in to shyness and avoid the guest</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Scene 2a: HIDE Choice -->
+            <div class="comic-page hide-path" data-page="2a">
+                <div class="page-image">
+                    <img src="public/scene2a.jpeg" alt="Ahmed debates hiding" class="comic-image">
+                    <div class="page-number">002A</div>
+                </div>
+                <div class="page-caption">
+                    <p>AHMED CHOOSES TO HIDE</p>
+                    <p class="caption-description">Ahmed debates hiding, a sign of shyness, but knows it's against the Arab value of welcoming guests. Two smaller versions of himself appear: one with arms crossed (angry), one worried, reflecting his inner struggle with cultural expectations.</p>
+                </div>
+            </div>
+
+            <!-- Scene 3b: Story Ends (HIDE consequence) -->
+            <div class="comic-page hide-path" data-page="3b">
+                <div class="story-end-screen">
+                    <div class="end-message">
+                        <h2>AHMED HIDES BEHIND THE CURTAIN</h2>
+                        <p>Ahmed hides behind a curtain, missing the chance to host. The guest leaves, and Ahmed feels regret for not honoring the cultural value of hospitality.</p>
+                        <p class="arabic-text">الضيف ضيف الله</p>
+                        <p class="translation">"A guest is a guest of Allah"</p>
+                        <div class="cultural-lesson">
+                            <p>In Arab culture, welcoming guests is one of the most important values. By choosing to hide, Ahmed misses the opportunity to honor this tradition and learn from the experience of true hospitality.</p>
+                        </div>
+                        <button class="restart-btn" onclick="restartStory()">
+                            RESTART STORY
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scene 2b: GREET Choice -->
+            <div class="comic-page greet-path" data-page="2b">
+                <div class="page-image">
+                    <img src="public/scene3a.jpeg" alt="Ahmed chooses to greet" class="comic-image">
+                    <div class="page-number">002B</div>
+                </div>
+                <div class="page-caption">
+                    <p>AHMED CHOOSES TO GREET</p>
+                    <p class="caption-description">Ahmed decides to uphold the tradition of generosity by greeting the guest, reflecting the Arab proverb, "A guest is a guest of Allah."</p>
+                </div>
+            </div>
+
+            <!-- Scene 3a: Greets guest -->
+            <div class="comic-page greet-path" data-page="3a">
+                <div class="page-image">
+                    <img src="public/scene3a.jpeg" alt="Ahmed greets the guest" class="comic-image">
+                    <div class="page-number">003A</div>
+                </div>
+                <div class="page-caption">
+                    <p>AHMED GREETS THE GUEST</p>
+                    <p class="caption-description">Ahmed opens the door and greets the guest with the traditional Islamic greeting, "As-salamu Alaikum" (Peace be upon you). The guest, an older man in a kandura and ghutra, responds warmly and carries a dallah, a symbol of hospitality.</p>
+                </div>
+            </div>
+
+            <!-- Scene 4: Guest enters -->
+            <div class="comic-page greet-path" data-page="4">
+                <div class="page-image">
+                    <img src="public/scene4.jpeg" alt="Guest enters" class="comic-image">
+                    <div class="page-number">004</div>
+                </div>
+                <div class="page-caption">
+                    <p>THE GUEST ENTERS</p>
+                    <p class="caption-description">The guest enters and is seated on the majlis. Ahmed places the dallah and finjan (small coffee cups) on a tray, emphasizing the cultural ritual of serving gahwa as a sign of respect and warmth.</p>
+                </div>
+                <div class="choice-buttons">
+                    <button class="choice-btn hand-btn" data-choice="wrong-hand">
+                        <span class="choice-title">LEFT HAND</span>
+                        <span class="choice-desc">Offer with left hand (cultural misstep)</span>
+                    </button>
+                    <button class="choice-btn hand-btn" data-choice="right-hand">
+                        <span class="choice-title">RIGHT HAND</span>
+                        <span class="choice-desc">Offer with right hand (proper etiquette)</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Scene 5a: Wrong hand shown -->
+            <div class="comic-page wrong-hand-path" data-page="5a">
+                <div class="page-image">
+                    <img src="public/scene5a.jpeg" alt="Ahmed uses wrong hand" class="comic-image">
+                    <div class="page-number">005A</div>
+                </div>
+                <div class="page-caption">
+                    <p>WRONG HAND SHOWN</p>
+                    <p class="caption-description">Ahmed offers the finjan with his left hand, a cultural misstep in Arab tradition where the right hand is used for honorable actions like serving. The guest gently corrects him.</p>
+                </div>
+            </div>
+
+            <!-- Scene 5b: Correct hand shown -->
+            <div class="comic-page right-hand-path" data-page="5b">
+                <div class="page-image">
+                    <img src="public/scene5b.jpeg" alt="Ahmed uses correct hand" class="comic-image">
+                    <div class="page-number">005B</div>
+                </div>
+                <div class="page-caption">
+                    <p>CORRECT HAND SHOWN</p>
+                    <p class="caption-description">Ahmed offers the finjan with his right hand, adhering to cultural etiquette. The guest nods, appreciating the respect shown.</p>
+                </div>
+            </div>
+
+            <!-- Scene 6a: Guest corrects him -->
+            <div class="comic-page wrong-hand-path" data-page="6a">
+                <div class="page-image">
+                    <img src="public/scene6a.jpeg" alt="Guest corrects Ahmed" class="comic-image">
+                    <div class="page-number">006A</div>
+                </div>
+                <div class="page-caption">
+                    <p>GUEST CORRECTS AHMED</p>
+                    <p class="caption-description">The guest demonstrates the correct way to serve, explaining the cultural significance of using the right hand as a sign of respect and cleanliness.</p>
+                </div>
+            </div>
+
+            <!-- Scene 6b: Guest approves -->
+            <div class="comic-page right-hand-path" data-page="6b">
+                <div class="page-image">
+                    <img src="public/scene6b.jpeg" alt="Guest approves" class="comic-image">
+                    <div class="page-number">006B</div>
+                </div>
+                <div class="page-caption">
+                    <p>GUEST APPROVES</p>
+                    <p class="caption-description">Ahmed serves correctly, and the guest takes the finjan, smiling at Ahmed's effort to uphold tradition.</p>
+                </div>
+            </div>
+
+            <!-- Scene 7: Ahmed pours gahwa -->
+            <div class="comic-page greet-path wrong-hand-path right-hand-path" data-page="7">
+                <div class="page-image">
+                    <img src="public/scene7.jpeg" alt="Ahmed pours gahwa" class="comic-image">
+                    <div class="page-number">007</div>
+                </div>
+                <div class="page-caption">
+                    <p>AHMED POURS GAHWA</p>
+                    <p class="caption-description">Ahmed pours gahwa from the dallah, a ritual that symbolizes generosity. The aroma of cardamom and saffron, typical of Emirati gahwa, fills the air (indicated by steam lines).</p>
+                </div>
+            </div>
+
+            <!-- Scene 8: Guest drinks & shakes cup -->
+            <div class="comic-page greet-path wrong-hand-path right-hand-path" data-page="8">
+                <div class="page-image">
+                    <img src="public/scene9b.jpeg" alt="Guest drinks and shakes cup" class="comic-image">
+                    <div class="page-number">008</div>
+                </div>
+                <div class="page-caption">
+                    <p>GUEST DRINKS & SHAKES THE CUP</p>
+                    <p class="caption-description">The guest drinks the gahwa and shakes the finjan, a traditional signal in Arab culture to indicate he's finished and doesn't want more. This gesture is a key part of gahwa etiquette.</p>
+                </div>
+                <div class="choice-buttons">
+                    <button class="choice-btn respect-btn" data-choice="respect">
+                        <span class="choice-title">RESPECT</span>
+                        <span class="choice-desc">Recognize the signal and take the cup</span>
+                    </button>
+                    <button class="choice-btn refill-btn" data-choice="refill">
+                        <span class="choice-title">REFILL</span>
+                        <span class="choice-desc">Pour more coffee (misunderstanding)</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Scene 9a: Respect option -->
+            <div class="comic-page respect-path" data-page="9a">
+                <div class="page-image">
+                    <img src="public/scene10a.jpeg" alt="Ahmed shows respect" class="comic-image">
+                    <div class="page-number">009A</div>
+                </div>
+                <div class="page-caption">
+                    <p>AHMED CHOOSES RESPECT</p>
+                    <p class="caption-description">Ahmed recognizes the cultural signal and decides to respect it by taking the finjan, showing his understanding of gahwa etiquette.</p>
+                </div>
+            </div>
+
+            <!-- Scene 9b: Refill option -->
+            <div class="comic-page refill-path" data-page="9b">
+                <div class="page-image">
+                    <img src="public/scene10a.jpeg" alt="Ahmed considers refill" class="comic-image">
+                    <div class="page-number">009B</div>
+                </div>
+                <div class="page-caption">
+                    <p>AHMED CHOOSES REFILL</p>
+                    <p class="caption-description">Ahmed considers refilling the finjan, unaware that the shake means the guest is done—a common mistake for someone learning the tradition.</p>
+                </div>
+            </div>
+
+            <!-- Scene 10a: Takes cup & respects signal -->
+            <div class="comic-page respect-path" data-page="10a">
+                <div class="page-image">
+                    <img src="public/scene10a.jpeg" alt="Ahmed takes cup respectfully" class="comic-image">
+                    <div class="page-number">010A</div>
+                </div>
+                <div class="page-caption">
+                    <p>TAKES CUP & RESPECTS SIGNAL</p>
+                    <p class="caption-description">Ahmed takes the finjan, showing respect for the guest's signal, and the interaction ends on a positive note, reflecting the value of understanding cultural cues.</p>
+                </div>
+            </div>
+
+            <!-- Scene 10b: Refills cup - Guest surprised -->
+            <div class="comic-page refill-path" data-page="10b">
+                <div class="page-image">
+                    <img src="public/scene10a.jpeg" alt="Ahmed refills cup" class="comic-image">
+                    <div class="page-number">010B</div>
+                </div>
+                <div class="page-caption">
+                    <p>REFILLS CUP - GUEST SURPRISED</p>
+                    <p class="caption-description">Ahmed refills the finjan, misunderstanding the shake. The guest looks surprised but accepts graciously, showing patience with Ahmed's learning.</p>
+                </div>
+            </div>
+
+            <!-- Scene 11: Final Message -->
+            <div class="comic-page greet-path respect-path refill-path" data-page="11">
+                <div class="page-image">
+                    <img src="public/scene11.jpeg" alt="Final cultural lesson" class="comic-image">
+                    <div class="page-number">011</div>
+                </div>
+                <div class="page-caption">
+                    <p>FINAL MESSAGE</p>
+                    <p class="caption-description">Ahmed and the guest share a warm moment, sitting on the majlis with the dallah between them. A text box reflects on the cultural importance of hospitality and respect in Arab tradition.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Page Navigation -->
+    <nav class="page-navigation">
+        <div class="nav-content">
+            <div class="nav-left">
+                <button class="nav-btn" id="prev-btn" disabled>
+                    <span class="btn-icon">←</span>
+                    <span class="btn-text">PREV</span>
+                </button>
+            </div>
+            
+            <div class="nav-center">
+                <div class="page-counter">
+                    <span class="current-page">01</span>
+                    <span class="separator">/</span>
+                    <span class="total-pages">02</span>
+                </div>
+                <div class="page-dots">
+                    <button class="dot active" data-page="1" title="Go to page 1"></button>
+                    <button class="dot" data-page="2" title="Go to page 2"></button>
+                    <button class="dot" data-page="3" title="Go to page 3"></button>
+                    <button class="dot" data-page="4" title="Go to page 4"></button>
+                    <button class="dot" data-page="5" title="Go to page 5"></button>
+                    <button class="dot" data-page="6" title="Go to page 6"></button>
+                    <button class="dot" data-page="7" title="Go to page 7"></button>
+                    <button class="dot" data-page="8" title="Go to page 8"></button>
+                    <button class="dot" data-page="9" title="Go to page 9"></button>
+                    <button class="dot" data-page="10" title="Go to page 10"></button>
+                    <button class="dot" data-page="11" title="Go to page 11"></button>
+                    <button class="dot" data-page="12" title="Go to page 12"></button>
+                    <button class="dot" data-page="13" title="Go to page 13"></button>
+                </div>
+            </div>
+            
+            <div class="nav-right">
+                <button class="nav-btn" id="next-btn">
+                    <span class="btn-text">NEXT</span>
+                    <span class="btn-icon">→</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Progress Bar -->
+    <div class="progress-bar">
+        <div class="progress-fill" style="width: 50%"></div>
+    </div>
+
+    <script src="reader.js"></script>
+</body>
+</html> 
