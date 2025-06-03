@@ -3,6 +3,37 @@
 
 document.addEventListener('DOMContentLoaded', function() {
     
+    // === READER BURGER MENU ===
+    const readerBurger = document.querySelector('.reader-burger');
+    const readerControls = document.querySelector('.reader-controls');
+    
+    // Toggle reader mobile menu
+    if (readerBurger) {
+        readerBurger.addEventListener('click', function() {
+            readerBurger.classList.toggle('active');
+            readerControls.classList.toggle('active');
+        });
+    }
+    
+    // Close reader menu when clicking outside
+    document.addEventListener('click', function(e) {
+        if (window.innerWidth <= 768 && 
+            !readerBurger.contains(e.target) && 
+            !readerControls.contains(e.target) && 
+            readerControls.classList.contains('active')) {
+            readerBurger.classList.remove('active');
+            readerControls.classList.remove('active');
+        }
+    });
+    
+    // Close reader menu on window resize if window becomes larger
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 768) {
+            readerBurger.classList.remove('active');
+            readerControls.classList.remove('active');
+        }
+    });
+    
     // === READER STATE ===
     let currentPage = 1;
     let storyPath = 'main'; // 'main', 'greet', 'hide', 'wrong-hand', 'right-hand', 'respect', 'refill'
@@ -17,7 +48,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const dots = document.querySelectorAll('.dot');
     const progressFill = document.querySelector('.progress-fill');
     const fullscreenBtn = document.getElementById('fullscreen-btn');
-    const settingsBtn = document.getElementById('settings-btn');
     
     // === STORY PATHS ===
     const storyPaths = {
@@ -331,22 +361,6 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {
                 document.exitFullscreen();
             }
-        });
-    }
-    
-    // Settings (placeholder functionality)
-    if (settingsBtn) {
-        settingsBtn.addEventListener('click', function() {
-            // Toggle some reader settings
-            document.body.classList.toggle('high-contrast');
-            
-            // Visual feedback
-            this.style.backgroundColor = '#DAA520';
-            this.style.color = '#2C1810';
-            setTimeout(() => {
-                this.style.backgroundColor = '';
-                this.style.color = '';
-            }, 200);
         });
     }
     

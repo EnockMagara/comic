@@ -10,83 +10,120 @@
 /* === READER NAVIGATION === */
 .reader-nav {
     background-color: #2C1810;
-    border-bottom: 4px solid #CD853F;
+    border-bottom: 4px solid #F5F1E8;
 }
 
 .reader-nav .nav-container {
     display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-columns: auto 1fr auto;
     align-items: center;
     gap: 20px;
+    padding: 0 40px;
+    height: 80px;
+    max-width: 1400px;
+    margin: 0 auto;
 }
 
 .back-link {
     color: #F5F1E8;
     text-decoration: none;
-    font-size: 18px;
-    font-weight: 800;
+    font-size: 16px;
+    font-weight: 700;
     letter-spacing: 1px;
     text-transform: uppercase;
-    padding: 12px 20px;
+    padding: 16px 20px;
     border: 2px solid #F5F1E8;
-    background-color: #2C1810;
+    transition: all 0.2s ease;
 }
 
 .back-link:hover {
+    background-color: #CD853F;
+    border-color: #CD853F;
+    color: #F5F1E8;
+}
+
+/* Reader burger menu styles */
+.reader-burger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1001;
+}
+
+.burger-line {
+    width: 100%;
+    height: 3px;
     background-color: #F5F1E8;
-    color: #2C1810;
+    margin: 3px 0;
+    transition: all 0.3s ease;
+    transform-origin: center;
+}
+
+.reader-burger.active .burger-line:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px);
+}
+
+.reader-burger.active .burger-line:nth-child(2) {
+    opacity: 0;
+}
+
+.reader-burger.active .burger-line:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
 }
 
 .reader-info {
     text-align: center;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
+    color: #F5F1E8;
 }
 
 .comic-title {
+    display: block;
     font-size: 20px;
     font-weight: 800;
-    color: #CD853F;
     text-transform: uppercase;
     letter-spacing: 2px;
+    color: #CD853F;
+    margin-bottom: 4px;
 }
 
 .issue-info {
+    display: block;
     font-size: 12px;
     font-weight: 400;
-    color: #F5F1E8;
-    text-transform: uppercase;
     letter-spacing: 1px;
+    color: #DAA520;
+    text-transform: uppercase;
 }
 
 .reader-controls {
     display: flex;
-    gap: 0;
-    justify-content: flex-end;
+    gap: 12px;
 }
 
 .control-btn {
-    background-color: #2C1810;
+    background-color: #CD853F;
     color: #F5F1E8;
     border: 2px solid #F5F1E8;
     font-family: inherit;
     font-size: 14px;
-    font-weight: 700;
+    font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 1px;
-    padding: 12px 16px;
+    padding: 16px;
     cursor: pointer;
+    transition: all 0.2s ease;
 }
 
 .control-btn:hover {
-    background-color: #DAA520;
+    background-color: #F5F1E8;
     color: #2C1810;
-    border-color: #DAA520;
-}
-
-.control-btn:first-child {
-    border-right: none;
+    border-color: #CD853F;
 }
 
 /* === COMIC READER CONTAINER === */
@@ -486,14 +523,73 @@
 /* === RESPONSIVE DESIGN === */
 @media (max-width: 768px) {
     .reader-nav .nav-container {
-        grid-template-columns: auto 1fr auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         gap: 12px;
         padding: 0 20px;
     }
     
+    /* Show burger menu on mobile */
+    .reader-burger {
+        display: flex;
+        order: 2;
+    }
+    
+    /* Hide reader info on mobile */
+    .reader-info {
+        display: none;
+    }
+    
+    /* Back link stays visible */
     .back-link {
         font-size: 14px;
         padding: 12px 16px;
+        order: 1;
+    }
+    
+    /* Hide reader controls by default on mobile, show as dropdown */
+    .reader-controls {
+        position: fixed;
+        top: 80px;
+        right: 0;
+        width: 200px;
+        background-color: #2C1810;
+        flex-direction: column;
+        gap: 0;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        border-left: 4px solid #F5F1E8;
+        border-bottom: 4px solid #F5F1E8;
+        z-index: 1000;
+        order: 3;
+    }
+    
+    /* Show reader controls when active */
+    .reader-controls.active {
+        max-height: 100px;
+    }
+    
+    .control-btn {
+        font-size: 14px;
+        padding: 20px;
+        border: none;
+        border-bottom: 2px solid #F5F1E8;
+        text-align: center;
+        width: 100%;
+        background-color: #CD853F;
+        color: #F5F1E8;
+        transition: all 0.2s ease;
+    }
+    
+    .control-btn:last-child {
+        border-bottom: none;
+    }
+    
+    .control-btn:hover {
+        background-color: #F5F1E8;
+        color: #2C1810;
     }
     
     .comic-title {
@@ -502,11 +598,6 @@
     
     .issue-info {
         font-size: 10px;
-    }
-    
-    .control-btn {
-        font-size: 12px;
-        padding: 12px;
     }
     
     .reader-container {
@@ -590,6 +681,31 @@
 @media (max-width: 480px) {
     .reader-nav .nav-container {
         padding: 0 15px;
+        gap: 8px;
+    }
+    
+    .back-link {
+        font-size: 12px;
+        padding: 10px 12px;
+    }
+    
+    .reader-burger {
+        width: 25px;
+        height: 25px;
+    }
+    
+    .burger-line {
+        height: 2px;
+        margin: 2px 0;
+    }
+    
+    .reader-controls {
+        width: 150px;
+    }
+    
+    .control-btn {
+        font-size: 12px;
+        padding: 15px;
     }
     
     .reader-container {
