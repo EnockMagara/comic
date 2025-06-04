@@ -52,33 +52,33 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // === AUDIO CONTROLS ===
     let audioEnabled = false;
-    let currentVolume = 0.3; // Default volume
+    let currentVolume = 0.9; // Increased default volume from 0.3 to 0.6
     let previousPageId = null;
     let currentFadeInterval = null; // Track current fade operation
-
+    
     // Define scenes that should have audio playing (now includes all scenes)
     const audioScenes = new Set(['1', '2', '2a', '2b', '3a', '3b', '4', '5a', '5b', '6a', '6b', '7', '8', '9a', '9b', '10a', '10b', '11']);
     
     // Define specific volume levels for each scene
     const sceneVolumes = new Map([
-        ['1', 0.2],    // Opening scene - Subtle introduction
-        ['2', 0.25],   // Choice point - Building anticipation
+        ['1', 0.7],    // Opening scene - Subtle introduction
+        ['2', 0.8],   // Choice point - Building anticipation
         ['2a', 0.15],  // Ahmed hides - Subdued atmosphere
-        ['2b', 0.3],   // Ahmed chooses to greet - Rising action
-        ['3a', 0.4],   // Ahmed greets the guest - Welcoming moment
-        ['3b', 0.2],   // Story end (hide path) - Somber ending
-        ['4', 0.35],   // Guest enters - Traditional hospitality begins
-        ['5a', 0.35],  // Wrong hand shown - Maintain atmosphere
-        ['5b', 0.35],  // Correct hand shown - Maintain atmosphere
-        ['6a', 0.35],  // Guest corrects Ahmed - Maintain atmosphere
-        ['6b', 0.35],  // Guest approves - Maintain atmosphere
-        ['7', 0.5],    // Pouring gahwa - Ceremonial moment (peak)
-        ['8', 0.3],    // Guest signals - Crucial cultural moment
-        ['9a', 0.4],   // Ahmed chooses respect - Good choice
-        ['9b', 0.3],   // Ahmed chooses refill - Mistake
-        ['10a', 0.45], // Takes cup & respects signal - Positive ending
-        ['10b', 0.3],  // Refills cup - Learning moment
-        ['11', 0.6]    // Final message - Reflective ending (emotional peak)
+        ['2b', 0.9],   // Ahmed chooses to greet - Rising action
+        ['3a', 0.8],   // Ahmed greets the guest - Welcoming moment
+        ['3b', 0.8],   // Story end (hide path) - Somber ending
+        ['4', 0.8],   // Guest enters - Traditional hospitality begins
+        ['5a', 0.8],  // Wrong hand shown - Maintain atmosphere
+        ['5b', 0.8],  // Correct hand shown - Maintain atmosphere
+        ['6a', 0.8],  // Guest corrects Ahmed - Maintain atmosphere
+        ['6b', 0.9],  // Guest approves - Maintain atmosphere
+        ['7', 0.9],    // Pouring gahwa - Ceremonial moment (peak)
+        ['8', 0.9],    // Guest signals - Crucial cultural moment
+        ['9a', 0.9],   // Ahmed chooses respect - Good choice
+        ['9b', 0.9],   // Ahmed chooses refill - Mistake
+        ['10a', 0.9], // Takes cup & respects signal - Positive ending
+        ['10b', 0.9],  // Refills cup - Learning moment
+        ['11', 0.9]    // Final message - Reflective ending (emotional peak)
     ]);
 
     // Define scenes that should have cinematic effects

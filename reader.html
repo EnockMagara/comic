@@ -21,7 +21,7 @@
     <nav class="nav-fixed reader-nav">
         <div class="nav-container">
             <div class="nav-brand">
-                <a href="index.html" class="back-link">← AHMED'S JOURNEY</a>
+                <a href="#" class="back-link" onclick="restartStory(); return false;">← AHMED'S JOURNEY</a>
             </div>
             <button class="burger-menu reader-burger" aria-label="Toggle reader menu">
                 <span class="burger-line"></span>
@@ -288,6 +288,16 @@
                 <div class="page-caption">
                     <p>FINAL MESSAGE</p>
                     <p class="caption-description">Ahmed and the guest share a warm moment, sitting on the majlis with the dallah between them. Ahmed learns the importance of hospitality and respect in Arab tradition.</p>
+                    <div class="story-completion">
+                        <div class="completion-message">
+                            <p class="arabic-text">الضيف ضيف الله</p>
+                            <p class="translation">"A guest is a guest of Allah"</p>
+                            <p class="completion-text">Ahmed has successfully learned the art of traditional Emirati hospitality. Through his journey, he discovered the importance of welcoming guests, serving gahwa with respect, and understanding cultural signals.</p>
+                        </div>
+                        <button class="restart-btn" onclick="restartStory()">
+                            PLAY AGAIN
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
